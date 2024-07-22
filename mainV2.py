@@ -15,12 +15,6 @@ def smooth(trajectory):
         smoothed_trajectory[:,i] = movingAverage(trajectory[:,i], radius=50)
     return smoothed_trajectory
 
-def fixBorder(frame):
-    s = frame.shape
-    T = cv2.getRotationMatrix2D((s[1]/2, s[0]/2), 0, 1.04)
-    frame = cv2.warpAffine(frame, T, (s[1], s[0]))
-    return frame
-
 def stabilize_video(input_path, output_path):
     cap = cv2.VideoCapture(input_path)
     n_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -114,9 +108,6 @@ def stabilize_video(input_path, output_path):
         # Apply affine wrapping to the given frame
         frame_stabilized = cv2.warpAffine(frame, m, (width,height))
 
-        # Fix border artifacts
-        frame_stabilized = fixBorder(frame_stabilized)
-
         # Write the frame to the file
         out.write(frame_stabilized)
 
@@ -125,6 +116,6 @@ def stabilize_video(input_path, output_path):
     out.release()
 
 # Usage
-input_video = "./input/input_very_high_frequency_motion.mp4"
-output_video = "./output/output_very_high_frequency_motion.mp4"
+input_video = "./input/input_rotation_motion.mp4"
+output_video = "./output/output_rotation_motion.mp4"
 stabilize_video(input_video, output_video)
