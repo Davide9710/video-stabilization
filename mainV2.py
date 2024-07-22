@@ -125,6 +125,6 @@ def stabilize_video(input_path, output_path):
     out.release()
 
 # Usage
-input_video = "input2.mp4"
-output_video = "stabilized_video.mp4"
+input_video = "./input/input_very_high_frequency_motion.mp4"
+output_video = "./output/output_very_high_frequency_motion.mp4"
 stabilize_video(input_video, output_video)
